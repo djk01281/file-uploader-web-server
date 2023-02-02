@@ -6,7 +6,7 @@ output.innerText  = "dadawd"
 idBtn.addEventListener("click", async () => {
   console.log("clicked");
   const id = idInput.value;
-  const downloadURL = `https://djk01281-upgraded-space-succotash-r59rjg7q6r2gqp-3000.preview.app.github.dev/download?id=${id}`;
+  const downloadURL = `/download/${id}`;
   //https://djk01281-upgraded-space-succotash-r59rjg7q6r2gqp-3000.preview.app.github.dev/download?id=A9G50Ux90P
   const res = await fetch(downloadURL);
   const reader = res.body.getReader();

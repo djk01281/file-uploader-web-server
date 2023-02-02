@@ -5,6 +5,7 @@ const {s3Upload} = require("../models/uploadModel")
 // const upload = multer({storage: storage})
 
 const uploadController = async(req, res) => {
+    
     const key = randomString(10)
     console.log(key)
 

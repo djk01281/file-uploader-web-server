@@ -18,11 +18,11 @@ dlBtn.addEventListener("click", async () => {
 
   //create link to file and attach to output
 
-  const textArea = document.createElement("textarea")
-  textArea.value = url
-
   const link = document.createElement("a");
-  link.href = url;
-  link.innerText = 'Click!'
+  link.innerText = 'Download'
+  link.href = url
+  link.display = 'none'
   document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 });

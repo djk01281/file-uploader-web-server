@@ -4,9 +4,8 @@ const downloadController = async (req, res) =>{
     const key = req.params.id
     
     try{
-        await s3Download(req, dest, key)
+        await s3Download(res, key)
         console.log("downloaded")
-        res.send("downloaded")
     }
 
     catch(error){

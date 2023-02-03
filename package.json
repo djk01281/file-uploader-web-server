@@ -20,6 +20,7 @@
   "homepage": "https://github.com/djk01281/file-uploader-web-server#readme",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.262.0",
+    "@aws-sdk/s3-request-presigner": "^3.264.0",
     "aws-sdk": "^2.1307.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",

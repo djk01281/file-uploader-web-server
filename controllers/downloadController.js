@@ -1,16 +1,19 @@
 const {s3Download} = require("../models/downloadModel")
 
-const downloadController = async (req, res) =>{
-    const key = req.params.id
+const downloadController =  (key) =>{
+    return new Promise(async (resolve, reject) => {
     
     try{
-        await s3Download(res, key)
+        const url =  await s3Download(key)
+        console.log(url)
         console.log("downloaded")
+        resolve(url)
     }
 
     catch(error){
         console.log(error)
-        res.send(error)
+        reject(error)
     }
+})
 }
 module.exports = {downloadController}

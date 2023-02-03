@@ -6,14 +6,12 @@
 // const readdirAsync = promisify(fs.readdir)
 // const unlinkSync = promisify(fs.unlink)
 // const{Readable, Passthrough} = require("stream")
-const { S3Client, GetObjectAclCommand, GetObjectCommand } = require("@aws-sdk/client-s3")
+const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3")
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner")
 
 
 
-
-const s3Download = (res, key) => {
-
-
+const s3Download = (key) => {
     return new Promise(async (resolve, reject) => {
         try {
             const bucketName = process.env.BUCKET_NAME
@@ -36,12 +34,15 @@ const s3Download = (res, key) => {
                 Bucket: bucketName,
                 Key: key,
             })
+            const url = await getSignedUrl(s3, getObject, { expiresIn: 3600 })
+            console.log(url)
+            resolve(url)
 
-            await s3.send(getObject).Body.pipe(res)
-            resolve()
+
         }
-        catch (error) { }
-        reject(error)
+        catch (error) {
+            reject(error)
+        }
     })
 
 }

@@ -1,6 +1,6 @@
 const express = require("express")
 const path = require("path")
-const { downloadController } = require('../controllers/downloadController')
+const { apiDownloadController } = require('../controllers/index')
 const { uploadController } = require('../controllers/uploadController')
 
 let apiRouter = express.Router()
@@ -8,10 +8,7 @@ let apiRouter = express.Router()
 apiRouter
     .route("/download/:id")
     .get(async (req, res) => {
-        console.log(`Download Route: ${req.params.id}`)
-        const url = await downloadController(req.params.id)
-        console.log(url)
-        res.end(url)
+        await apiDownloadController(req, res)
     })
 
 apiRouter

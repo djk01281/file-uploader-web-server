@@ -1,33 +1,28 @@
-const idBtn = document.querySelector(".btn-id");
-const idInput = document.querySelector(".input-id");
+const dlBtn = document.querySelector(".btn-dl");
 const output = document.querySelector(".output")
 output.innerText = "dadawd"
+const paths = window.location.pathname.split('/');
+const id = paths[paths.length - 1]
 
-idBtn.addEventListener("click", async () => {
+output.innerText = id
+dlBtn.addEventListener("click", async () => {
   console.log("clicked");
-  const id = idInput.value;
-  const downloadURL = `/download/${id}`;
-  //https://djk01281-upgraded-space-succotash-r59rjg7q6r2gqp-3000.preview.app.github.dev/download?id=A9G50Ux90P
+
+  //get the ID from URL
+
+
+  //get the URL from API
+  const downloadURL = `/api/download/${id}`;
   const response = await fetch(downloadURL)
   const url = await response.text();
 
-  // const reader = res.body.getReader();
+  //create link to file and attach to output
 
-  // let chunks = [];
-  // let chunk;
-  // while (!(chunk = await reader.read()).done) {
-  //   chunks.push(chunk.value);
-  // }
-  // const blob = new Blob(chunks);
-  // const url = URL.createObjectURL(blob);
+  const textArea = document.createElement("textarea")
+  textArea.value = url
+
   const link = document.createElement("a");
   link.href = url;
-  link.innerText = "Click To Download"
+  link.innerText = 'Click!'
   document.body.appendChild(link)
-  // link.download = "file.jpeg";
-  // link.style.display = "none";
-  // document.body.appendChild(link);
-  // link.click();
-  // document.body.removeChild(link);
-  // console.log("ended!");
 });

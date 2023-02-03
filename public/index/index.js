@@ -15,7 +15,7 @@ submitBtn.addEventListener("click", async () => {
   const fileType = selectedFile.name.split().pop()
 
   //uploading the form data
-  const response = await fetch('/upload', {
+  const response = await fetch('/api/upload', {
     method: "POST",
     headers: {
       "file-type": fileType
@@ -29,7 +29,8 @@ submitBtn.addEventListener("click", async () => {
 
 
   //showing the ID on screen
-  const idElement = document.createElement("div");
-  idElement.innerText = `ID is : ${text}`;
-  output.appendChild(idElement);
+  const link = document.createElement("a");
+  link.href = `${window.location.href}download/${text}`
+  link.innerText = `ID is : ${text}`;
+  output.appendChild(link);
 });

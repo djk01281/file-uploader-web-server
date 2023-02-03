@@ -4,7 +4,7 @@ const app = express()
 const PORT = 5000
 
 //importing routers
-const { uploadRouter } = require("./routes/uploadRouter")
+const { apiRouter } = require("./routes/apiRouter")
 const { downloadRouter } = require("./routes/downloadRouter")
 
 //configuring envirionment variables for S3 Bucket
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.use("/download", downloadRouter)
-app.use("/upload", uploadRouter)
+app.use("/api", apiRouter)
 
 app.listen(PORT, () => {
     console.log("Server is Listening on port 5000...")

@@ -6,10 +6,45 @@
 // const readdirAsync = promisify(fs.readdir)
 // const unlinkSync = promisify(fs.unlink)
 // const{Readable, Passthrough} = require("stream")
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3")
+const { S3Client, GetObjectCommand, HeadObjectCommand } = require("@aws-sdk/client-s3")
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner")
 
+const s3CheckKey = (key) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const bucketName = process.env.BUCKET_NAME
+            const bucketRegion = process.env.BUCKET_REIGION
+            const accessKey = process.env.ACCESS_KEY
+            const secretAccessKey = process.env.SECRET_ACCESS_KEY
+            console.log(`Key is: ${key}`)
+            console.log(`Reaching Out To - ${bucketName} for Checking`)
 
+            const s3 = new S3Client(
+                {
+                    credentials: {
+                        accessKeyId: accessKey,
+                        secretAccessKey: secretAccessKey
+                    },
+                    region: bucketRegion
+                }
+            )
+
+            const command = new HeadObjectCommand({
+                Bucket: bucketName,
+                Key: key,
+            })
+
+            const response = await s3.send(command)
+
+            console.log(response)
+            const statusCode = response['$metadata']['httpStatusCode']
+            resolve(response)
+        }
+        catch (error) {
+            reject(error)
+        }
+    })
+}
 
 const s3Download = (key) => {
     return new Promise(async (resolve, reject) => {
@@ -20,6 +55,7 @@ const s3Download = (key) => {
             const secretAccessKey = process.env.SECRET_ACCESS_KEY
 
             console.log(bucketName)
+            console.log(key)
 
             const s3 = new S3Client(
                 {
@@ -47,4 +83,4 @@ const s3Download = (key) => {
 
 }
 
-module.exports = { s3Download }
+module.exports = { s3Download, s3CheckKey }

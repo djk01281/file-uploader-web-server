@@ -1,3 +1,9 @@
+body{
+    margin: 0;
+        padding: 0;
+        border: 0;
+}
+
 .lds-ellipsis {
     position: relative;
     width: 80px;
@@ -67,35 +73,44 @@ body{
     background-color: #DFDFDF;
     display: flex;
     justify-content: center;
+    font-family: 'Pacifico', cursive;
+    color: #634B4F;
+    font-size: 0.8rem;
 }
 h1{
-    color: #13143B;
+    color: black;
     margin-top: 0;
-    font-family: Arial, Helvetica, sans-serif;
 }
+
+
 .btn{
-    width: 10rem;
+    font-family: 'Pacifico', cursive;
+    margin: 0;
+    width: 100%;
     border-radius: 0.5rem;
     background-color: white;
     color: #634B4F;
     font-size: 1rem;
-    font-weight: bold;
     padding: 0.5rem 1rem;
     display: block;   
+    border-color: #634B4F;
+    border: 0.1rem;
 }
 .container-page{
-    width: 70%;
+    width: 60%;
     border-radius: 1rem;
     padding: 2rem;
     background-color: #FFFAF2;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     margin-top: 5rem;
 }
 .output{
-    width: 100%;
+    padding: 0;
+    width: 12rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -125,7 +140,5 @@ label{
     padding: 0.5rem 1rem;
     width: 10rem;
     border-radius: 0.5rem;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }

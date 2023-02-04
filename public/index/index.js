@@ -1,13 +1,10 @@
 const output = document.querySelector(".output");
 const fileInput = document.querySelector(".input-file");
-const submitBtn = document.querySelector(".btn-submit");
 const fileForm = document.querySelector(".form-file")
 fileForm.addEventListener("submit", (e) => { e.preventDefault() })
 
-//testing js load
-output.innerText = "HELLLO>>"
 
-submitBtn.addEventListener("click", async () => {
+fileInput.addEventListener("change", async () => {
   //create loading animation
   output.innerHTML = "<div class=\"lds-ellipsis\"><div></div><div></div><div></div><div></div></div>"
   
@@ -38,6 +35,8 @@ submitBtn.addEventListener("click", async () => {
   //showing the ID on screen
   const copyLinkBtn = document.createElement("button");
   copyLinkBtn.innerText = "Copy Link"
+  copyLinkBtn.classList.add('btn')
+  copyLinkBtn.classList.add('btn-copy')
   copyLinkBtn.addEventListener(("click"), async () => {
     await navigator.clipboard.writeText(downloadLink)
     alert('Text Copied!')
@@ -50,6 +49,8 @@ submitBtn.addEventListener("click", async () => {
     url: downloadLink
   }
   const shareBtn = document.createElement('button')
+  shareBtn.classList.add('btn')
+  shareBtn.classList.add('btn-share')
   shareBtn.innerText = "Share"
   shareBtn.addEventListener('click', async () => { await navigator.share(shareData) })
   output.appendChild(shareBtn)

@@ -1,6 +1,7 @@
+const { resolveAny } = require("dns")
 const express = require("express")
 const path = require("path")
-const { checkDownload } = require('../controllers/downloadController')
+const{downloadController} = require('../controllers/index')
 
 let downloadRouter = express.Router()
 
@@ -12,17 +13,7 @@ downloadRouter
 downloadRouter
     .route("/:id")
     .get(async (req, res) => {
-        console.log("Welcome to Download")
-        const key = req.params['id']
-        console.log(`id is: ${key}`)
-        const keyExists = await checkDownload(key)
-
-        if (keyExists) {
-            res.sendFile(path.join(__dirname, '..', 'public', 'download', 'download.html'))
-        }
-        else {
-            res.status(404).send('Not Found')
-        }
+        await downloadController(req, res)
     })
 
 module.exports = { downloadRouter }

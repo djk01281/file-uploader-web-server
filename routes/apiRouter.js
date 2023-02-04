@@ -1,7 +1,6 @@
 const express = require("express")
-const path = require("path")
 const { apiDownloadController } = require('../controllers/index')
-const { uploadController } = require('../controllers/uploadController')
+const { uploadController } = require('../controllers/index')
 
 let apiRouter = express.Router()
 
@@ -14,10 +13,7 @@ apiRouter
 apiRouter
     .route("/upload")
     .post(async (req, res) => {
-        console.log("Welcome to Upload")
-        const result = await uploadController(req)
-        console.log(`result: ${result}`)
-        res.end(result)
+        await uploadController(req, res)
     })
 
 

@@ -1,28 +1,22 @@
-const express = require('express')
-const { randomString } = require("../utils/randomString")
-const { s3Upload } = require("../models/uploadModel")
-// const storage = multer.memoryStorage()
-// const upload = multer({storage: storage})
-
-const uploadController = (req) => {
-    return new Promise(async (resolve, reject) => {
-        const random = randomString(10)
+const uploadControllerMaker = (getRandomString, uploadFileStream) =>{
+    return async function (req, res){
+        const random = getRandomString(10)
         const fileType = req.headers['file-type']
         const key = random + fileType
 
         console.log(key)
 
         try {
-            const response = await s3Upload(req, key)
+            const response = await uploadFileStream(req, key)
             console.log(response)
-            resolve(key)
+            res.end(key)
+            return
         }
         catch (error) {
             console.log(error)
-            reject(error)
+            throw(error)
         }
-    })
-
+    }
 }
 
-module.exports = { uploadController }
+module.exports = { uploadControllerMaker }

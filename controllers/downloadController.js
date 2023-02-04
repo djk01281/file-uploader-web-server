@@ -1,37 +1,17 @@
-const { Response } = require("aws-sdk")
-const { s3Download, s3CheckKey } = require("../models/downloadModel")
+const downloadControllerMaker = (downloadStaticPath, checkFileExists) => {
+    return async function(req, res){
+        console.log("Welcome to Download")
+        const key = req.params['id']
+        console.log(`id is: ${key}`)
+        const keyExists = await checkFileExists(key)
 
-const downloadController = (key) => {
-    return new Promise(async (resolve, reject) => {
-
-        try {
-            const url = await s3Download(key)
-            console.log(url)
-            console.log("downloaded")
-            resolve(url)
+        if (keyExists) {
+            res.sendFile(downloadStaticPath)
         }
-
-        catch (error) {
-            console.log(error)
-            reject(error)
+        else {
+            res.status(404).send('Not Found')
         }
-    })
+    }
 }
 
-const checkDownload = (key) => {
-    return new Promise(async (resolve, reject) => {
-        console.log(`Searching for: ${key} in checkDownload`)
-        try {
-            const response = await s3CheckKey(key)
-            console.log(`Respose Is: ${response}`)
-            resolve(response)
-        }
-
-        catch (error) {
-            console.log(error)
-            reject(error)
-        }
-    })
-}
-
-module.exports = { downloadController, checkDownload }
+module.exports = { downloadControllerMaker}
